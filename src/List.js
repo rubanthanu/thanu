@@ -1,21 +1,18 @@
 import React from 'react'
-import { FaRegTrashAlt } from 'react-icons/fa';
+
+import LineList from './LineList';
 
 const List = ({ items, handlecheck, remove }) => {
   return (
       <ul>
         {
             items.map((item)=>(
-              <li className='item' key={item.id}>
-                <input type="checkbox" onChange={()=>handlecheck(item.id)} checked= {item.checked}/>
-                <label style={(item.checked)? {textDecoration:'line-through'}:null} onDoubleClick={()=>handlecheck(item.id)}>{item.name}</label>
-                <FaRegTrashAlt
-                  role="button"
-                  tabIndex="0"
-                  onClick={()=>remove(item.id)}
-                />
-              
-              </li> 
+             <LineList
+                item={item}
+                handlecheck={handlecheck}
+                remove={remove}
+              />
+
             ))
         }
 

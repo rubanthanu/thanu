@@ -8,6 +8,7 @@ const List = ({ items, handlecheck, remove }) => {
         {
             items.map((item)=>(
              <LineList
+                key={item.id}
                 item={item}
                 handlecheck={handlecheck}
                 remove={remove}

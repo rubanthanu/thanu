@@ -10,6 +10,7 @@ const LineList = ({ item, handlecheck, remove }) => {
                   role="button"
                   tabIndex="0"
                   onClick={()=>remove(item.id)}
+                  aria-label={`Delete ${item.name}`}
                 />
               
               </li> 

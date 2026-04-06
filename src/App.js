@@ -6,18 +6,44 @@ import { Footer } from './Footer';
 import { useState } from 'react';
 import AddItem from './AddItem';
 import SearchItems from './SearchItems';
+import { useEffect } from 'react';  
 
 
 function App() {
 
- const [items, setItems] = useState(
-     JSON.parse(window.localStorage.getItem("todo"))
-   );
+  const API_URL="http://localhost:3500/todo";
+
+ const [items, setItems] = useState([]);
 
 
  const[newitem, setNewitem]=useState('');
  const[search, setSearch]=useState('');
+  
 
+useEffect(() => {
+
+  const fetchItems = async () => {
+    try {
+      const response = await fetch(API_URL);
+
+      if (!response.ok) {
+        throw Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      setItems(data);
+
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  fetchItems();
+
+}, []);
+
+   
+ 
  
  const handlecheck=(id) => {
    console.log(id);

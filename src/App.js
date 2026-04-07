@@ -9,6 +9,7 @@ import SearchItems from './SearchItems';
 import { useEffect } from 'react';  
 
 
+
 function App() {
 
   const API_URL="http://localhost:3500/todo";
@@ -18,6 +19,8 @@ function App() {
 
  const[newitem, setNewitem]=useState('');
  const[search, setSearch]=useState('');
+ const[fetchError, setFetchError]=useState(null);
+ const[isLoading, setIsLoading]=useState(true);
   
 
 useEffect(() => {
@@ -32,13 +35,20 @@ useEffect(() => {
 
       const data = await response.json();
       setItems(data);
+      setFetchError(null);
 
     } catch (err) {
       console.log(err.message);
+      setFetchError(err.message);
+
+    }
+    finally {
+      setIsLoading(false);
     }
   };
+  setTimeout(() => {
 
-  fetchItems();
+  fetchItems();}, 2000);
 
 }, []);
 
@@ -50,7 +60,9 @@ useEffect(() => {
    const listitem=items.map((item)=> 
      item.id===id? {...item,checked:!item.checked}:item )
    setItems(listitem);
-   localStorage.setItem("todo", JSON.stringify(listitem));
+   
+  
+   
  }
  const remove=(id)=>{
    const l=items.filter((item)=>item.id !== id)
@@ -65,8 +77,13 @@ useEffect(() => {
   const mynewitem={id, checked: false, name: newitem};
   const list=[...items, mynewitem];
   setItems(list);
-  localStorage.setItem("todo", JSON.stringify(list));
-  setNewitem('');
+  const postoption={
+     method: "POST",
+     headers: {
+      "Content-Type": "application/json"
+     },
+     body: JSON.stringify({mynewitem})
+   }
 
 
  }
@@ -90,16 +107,20 @@ useEffect(() => {
           setSearch={setSearch}
           
         /> 
-
-        <Content
+       <main>
+          {isLoading && <p>Loading...</p>}
+          {fetchError && <p style={{color:"red"}}>{fetchError}</p>}
+          { !isLoading && !fetchError && <Content
           items={items.filter((item)=>
              item.name.toLowerCase().includes(search.toLowerCase()))}
-          handlecheck={handlecheck}
-          remove={remove}
+            handlecheck={handlecheck}
+            remove={remove}
           
-        />
+        />}
+        </main>
+        
        <Footer length={items.length} />
-
+        
     </div>
   );
 }

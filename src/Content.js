@@ -16,7 +16,7 @@ export const Content = ({ items, handlecheck, remove , }) => {
 
   
   return (
-    <main>
+    <>
 
       {items.length? (
 
@@ -29,6 +29,6 @@ export const Content = ({ items, handlecheck, remove , }) => {
      ):<p style={{color:'red'}}>No items to display</p>}
       
    
-    </main>
+    </>
   )
 }

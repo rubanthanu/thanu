@@ -1,7 +1,6 @@
-import React from 'react'
 
-const ApiRequest = async(url=
-    '',optionsobj=null,errmsg=null) => {
+
+const ApiRequest = async(url='',optionsobj=null,errmsg=null) => {
  
         try {
             const response=await fetch(url,optionsobj);

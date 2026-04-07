@@ -1,20 +1,20 @@
 {
   "todo": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Buy groceries",
       "checked": false
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Walk the dog",
       "checked": true
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Read a book",
       "checked": true
     }
-
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
